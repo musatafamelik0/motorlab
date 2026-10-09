@@ -1,24 +1,15 @@
-MOTORLAB — Türkiye Araç Rehberi prototipi
-Son güncelleme: 08.10.2026
+MOTORLAB DRIVE
 
-İçerik:
-- 3 marka / 9 model
-- Sıfır + 2. el filtreleri
-- Model bazlı ayrı sayfalar
-- Motor / paket / şanzıman tabloları
-- Kronik sorun ile kullanıcı bildirimi ayrımı
-- Kullanıcı görüş temaları ve kaynak linkleri
-- İkinci el kontrol listeleri
-- Piyasa / likidite editoryal puanı
-- 3 araca kadar çalışan karşılaştırma sepeti
-- Her model için PDF rapor
+ZIP'i tamamen çıkarın ve index.html dosyasını açın.
+Daha stabil kullanım: python3 serve.py → http://127.0.0.1:8081
 
-En iyi kullanım:
-python3 serve.py
-sonra http://127.0.0.1:8081
-
-Notlar:
-MOTORLAB puanı editoryal karar yardım puanıdır, bilimsel arıza olasılığı değildir.
-Şikâyet/forum verisi arıza sıklığını temsil etmez.
-Fiyatlar ve kampanyalar değişebilir.
-Dış araç görselleri kaynak sitelerden yüklenir; internet gerekir ve Türkiye paketiyle farklılık gösterebilir.
+Bu sürümde:
+- Fotoğraflı ve sade ana araç bulucu
+- Model başına 3 farklı ürün/iç-dış görsel
+- 30 saniyelik karar özeti
+- Sınırlı scroll/reveal ve bar animasyonları
+- Gerçek iç/detay fotoğrafı + kabin/pratiklik bilgisi
+- Araç bazlı ÖTV/engelli araç istisnası değerlendirme kartları
+- Motor/şanzıman, risk, bakım/parça, usta erişimi
+- Forum temaları, kullanıcı yorumları, Ustama Sor
+- Karşılaştırma + PDF
