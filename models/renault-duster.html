@@ -510,6 +510,157 @@ html:before{
  .cost-real{grid-template-columns:1fr}
  .cabin-detail-grid{grid-template-columns:repeat(2,1fr)}
 }
+</style><style>
+/* ===== V4.1 hotfix: card proportions + mobile price memory ===== */
+
+/* HOME CARDS: restore the earlier clean card look.
+   Desktop hover still dims image and reveals score, but normal state remains compact. */
+.car-card .card-score{
+  position:absolute;
+  top:12px!important;right:12px!important;left:auto!important;
+  min-width:auto!important;max-width:none!important;width:auto!important;
+  padding:7px 9px!important;border-radius:12px!important;
+  background:rgba(255,255,255,.92)!important;color:var(--ink)!important;
+  backdrop-filter:blur(7px)!important;opacity:1!important;transform:none!important;
+  display:block!important;text-align:right!important;
+}
+.car-card .card-score strong{font-size:17px!important;line-height:1!important;letter-spacing:-.03em!important;text-shadow:none!important}
+.car-card .card-score span{font-size:6px!important;color:var(--muted)!important;letter-spacing:.08em!important}
+@media (hover:hover) and (pointer:fine){
+  .car-card:hover .car-photo img{opacity:.60!important;transform:scale(1.035)!important}
+  .car-card:hover .car-photo:after{opacity:1!important}
+  .car-card:hover .card-score{
+    left:50%!important;right:auto!important;top:50%!important;
+    transform:translate(-50%,-50%) scale(1)!important;
+    min-width:84px!important;padding:10px 13px!important;border-radius:16px!important;
+    background:rgba(12,13,12,.72)!important;color:#fff!important;text-align:center!important;
+  }
+  .car-card:hover .card-score strong{font-size:34px!important;color:#fff!important}
+  .car-card:hover .card-score span{font-size:7px!important;color:#fff!important;opacity:.82!important}
+}
+
+/* MOBILE PRICE MEMORY: compact chart, clean control stack, no giant empty card */
+@media(max-width:640px){
+  .content-section#prices{padding-top:22px!important}
+  #prices .content-head{margin-bottom:9px!important}
+  #prices .content-head h2{font-size:31px!important}
+  .price-memory{display:block!important}
+  .price-chart-panel,.price-stats{border-radius:18px!important;padding:12px!important}
+  .price-chart-panel{margin-bottom:9px!important;min-height:0!important}
+  .price-chart-top{
+    display:grid!important;grid-template-columns:1fr!important;gap:8px!important;
+    align-items:start!important;
+  }
+  .price-chart-top h3{font-size:21px!important;line-height:1.05!important}
+  .price-version{display:none!important}
+  .price-lab-controls{
+    display:grid!important;grid-template-columns:1fr 1fr!important;gap:5px!important;margin-top:1px!important
+  }
+  .price-mode{padding:8px 7px!important;font-size:8px!important;text-align:center!important}
+  .price-mode:nth-child(3){grid-column:1/-1!important}
+  .price-interactive{margin-top:4px!important}
+  .price-interactive svg{height:180px!important}
+  .price-svg{display:none!important}
+  .price-tooltip{
+    font-size:8px!important;max-width:150px!important;white-space:normal!important;
+    padding:7px 8px!important
+  }
+  .price-stats{
+    display:grid!important;grid-template-columns:1fr 1fr!important;gap:6px!important
+  }
+  .price-stat{min-height:82px!important;padding:9px!important}
+  .price-stat strong{font-size:18px!important}
+  .price-source{font-size:7px!important;line-height:1.4!important}
+  .price-table{max-height:180px!important}
+}
+
+/* On touch devices use tap targets; don't rely on hover-only graph affordance */
+@media (hover:none){
+  .car-card .card-hover-cta{display:none!important}
+}
+</style><style>
+/* ===== V4.2 CLEAN CARD + PRICE REBUILD ===== */
+
+/* HOME CARDS — return to the earlier editorial card composition */
+#cars .car-card{background:var(--paper);border:1px solid var(--line);border-radius:22px;overflow:hidden;transition:transform .22s ease,box-shadow .22s ease}
+#cars .car-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+#cars .car-photo{height:205px;position:relative;display:block;overflow:hidden;background:#ddd}
+#cars .car-photo img{width:100%;height:100%;object-fit:cover;opacity:1;transform:scale(1);transition:opacity .32s ease,transform .5s cubic-bezier(.2,.75,.2,1)}
+#cars .car-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,11,10,.02),rgba(10,11,10,.36));opacity:0;transition:opacity .28s ease;pointer-events:none;z-index:2}
+#cars .car-body{padding:14px}
+#cars .card-headline{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;margin-bottom:3px}
+#cars .card-title-side{min-width:0}
+#cars .car-eyebrow{font-size:8px;color:var(--blue);font-weight:850;text-transform:uppercase;letter-spacing:.02em}
+#cars .car-body h3{font-size:26px;letter-spacing:-.045em;margin:4px 0 0}
+#cars .card-score-inline{text-align:right;white-space:nowrap;line-height:1;padding-top:2px}
+#cars .card-score-inline strong{font-size:18px;letter-spacing:-.03em}
+#cars .card-score-inline span{font-size:8px;font-weight:800;margin-left:1px}
+#cars .car-verdict{font-size:10px;line-height:1.5;color:#555950;min-height:45px;margin:0}
+#cars .hover-score{position:absolute;left:50%;top:50%;transform:translate(-50%,-44%) scale(.92);z-index:4;opacity:0;color:#fff;text-align:center;pointer-events:none;transition:opacity .24s ease,transform .32s cubic-bezier(.2,.8,.2,1)}
+#cars .hover-score strong{font-size:44px;line-height:.88;letter-spacing:-.06em;display:block;text-shadow:0 8px 28px rgba(0,0,0,.22)}
+#cars .hover-score span{display:block;margin-top:5px;font-size:7px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+#cars .card-hover-cta{position:absolute;left:50%;bottom:17px;transform:translate(-50%,8px);z-index:4;opacity:0;color:#fff;font-size:7px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;transition:opacity .22s ease,transform .28s ease;pointer-events:none}
+#cars .card-fav{z-index:6}
+@media (hover:hover) and (pointer:fine){
+  #cars .car-card:hover .car-photo img{opacity:.60;transform:scale(1.035)}
+  #cars .car-card:hover .car-photo:after{opacity:1}
+  #cars .car-card:hover .hover-score{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  #cars .car-card:hover .card-hover-cta{opacity:1;transform:translate(-50%,0)}
+}
+@media (hover:none){
+  #cars .hover-score,#cars .card-hover-cta{display:none!important}
+}
+
+/* PRICE MEMORY V4.2 — one layout, responsive by construction */
+.price-v42{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(290px,.55fr);gap:9px;align-items:stretch}
+.price-v42-card,.price-v42-stats{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:16px;min-width:0}
+.price-v42-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.price-v42-head .kicker{margin-bottom:4px}
+.price-v42-head h3{font-size:20px;line-height:1.05;letter-spacing:-.025em;margin:0}
+.price-v42-controls{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.price-v42-mode{border:1px solid var(--line);background:#fff;color:var(--blue);border-radius:999px;padding:8px 11px;font-size:8px;font-weight:850;cursor:pointer;transition:.16s ease}
+.price-v42-mode:hover{border-color:#b9b9b3}
+.price-v42-mode.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.price-v42-stage{position:relative;width:100%;height:250px;margin-top:11px;touch-action:pan-y}
+.price-v42-stage svg{display:block;width:100%;height:100%;overflow:visible}
+.price-v42-tooltip{position:absolute;z-index:10;left:0;top:0;opacity:0;pointer-events:none;background:#111;color:#fff;border-radius:11px;padding:8px 10px;font-size:8px;line-height:1.4;white-space:nowrap;transform:translate(-50%,calc(-100% - 10px));transition:opacity .1s ease}
+.price-v42-tooltip.show{opacity:1}
+.v42-grid{stroke:#e1e2dd;stroke-width:1}.v42-axis{fill:#777a72;font:9px Inter,Arial,sans-serif}.v42-line{fill:none;stroke:var(--blue);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1200;stroke-dashoffset:1200;animation:v42draw .95s cubic-bezier(.2,.8,.2,1) forwards}.v42-area{fill:var(--blue);opacity:.10}.v42-dot{fill:#fff;stroke:var(--blue);stroke-width:2;transition:r .12s ease,fill .12s ease}.v42-dot.active{r:6;fill:var(--blue)}.v42-guide{stroke:#8f938c;stroke-width:1;stroke-dasharray:3 4;opacity:0}.v42-bar{fill:var(--blue);transform-box:fill-box;transform-origin:center bottom;animation:v42bar .45s cubic-bezier(.2,.8,.2,1) both}.v42-bar.neg{fill:#e66b5b}
+@keyframes v42draw{to{stroke-dashoffset:0}}@keyframes v42bar{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.price-v42-readout{display:none;margin-top:7px;background:var(--soft);border-radius:11px;padding:9px 10px;font-size:8px;line-height:1.4}
+.price-v42-readout b{font-size:10px}
+.price-v42-stats{display:grid;grid-template-columns:1fr 1fr;gap:7px;align-content:start}
+.price-v42-stat{background:var(--soft);border-radius:13px;padding:11px;min-height:92px}
+.price-v42-stat span{display:block;font-size:7px;color:var(--muted);font-weight:850;text-transform:uppercase}.price-v42-stat strong{display:block;font-size:18px;letter-spacing:-.04em;margin-top:5px}.price-v42-stat small{display:block;font-size:7px;color:var(--muted);margin-top:4px;line-height:1.35}
+.price-v42-source{grid-column:1/-1;font-size:8px;color:var(--muted);line-height:1.45;padding:7px 2px}.price-v42-source a{text-decoration:underline;font-weight:800}.price-v42-toggle{border:0;background:transparent;text-decoration:underline;font-size:8px;font-weight:850;padding:0;cursor:pointer}
+.price-v42-table{display:none;grid-column:1/-1;max-height:220px;overflow:auto;border-top:1px solid var(--line)}.price-v42-table.show{display:block}.price-v42-row{display:grid;grid-template-columns:1fr 1fr;padding:7px 2px;border-bottom:1px solid var(--line);font-size:8px}.price-v42-row b{text-align:right}
+
+@media(max-width:900px){
+  .price-v42{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  #cars .cars-grid{grid-template-columns:1fr}
+  #cars .car-photo{height:205px}
+  #cars .card-score-inline strong{font-size:17px}
+  #prices.content-section{padding-top:22px;padding-bottom:24px}
+  #prices .content-head{margin-bottom:9px}
+  #prices .content-head h2{font-size:31px}
+  .price-v42{gap:8px}
+  .price-v42-card,.price-v42-stats{border-radius:18px;padding:12px}
+  .price-v42-head{display:block}
+  .price-v42-head h3{font-size:22px;max-width:260px}
+  .price-v42-controls{display:grid;grid-template-columns:1fr 1fr;gap:5px;justify-content:stretch;margin-top:10px}
+  .price-v42-mode{padding:8px 5px;text-align:center;font-size:8px;white-space:nowrap}
+  .price-v42-mode:nth-child(3){grid-column:1/-1}
+  .price-v42-stage{height:190px;margin-top:7px}
+  .price-v42-tooltip{display:none}
+  .price-v42-readout{display:block;min-height:48px}
+  .price-v42-stats{grid-template-columns:1fr 1fr;gap:6px}
+  .price-v42-stat{min-height:82px;padding:9px}
+  .price-v42-stat strong{font-size:18px}
+  .price-v42-source{font-size:7px;line-height:1.4}
+  .price-v42-table{max-height:180px}
+}
 </style></head>
 <body>
 <header class="site-header"><div class="wrap nav">
@@ -587,29 +738,9 @@ html:before{
 </div>
 </div>
 </div>
-</section><section class="content-section reveal" id="prices">
-<div class="content-head"><h2>Fiyat hafızası</h2><span>2025 aylık liste fiyatı arşivi</span></div>
-<div class="price-memory">
-<div class="price-chart-panel">
-<div class="price-chart-top"><div><div class="kicker">Referans versiyon</div><h3>2025 1.0 Evolution Eco-G</h3></div><div class="price-version">Aylık liste fiyatı</div></div>
-<svg aria-label="2025 fiyat geçmişi grafiği" class="price-svg" role="img" viewbox="0 0 720 220">
-<defs><lineargradient id="priceGrad-renault-duster" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#3257ff" stop-opacity=".20"></stop><stop offset="100%" stop-color="#3257ff" stop-opacity="0"></stop></lineargradient></defs>
-<line class="price-gridline" x1="48" x2="702" y1="18.0" y2="18.0"></line><text class="price-axis" x="0" y="21.0">1.85M</text><line class="price-gridline" x1="48" x2="702" y1="73.3" y2="73.3"></line><text class="price-axis" x="0" y="76.3">1.67M</text><line class="price-gridline" x1="48" x2="702" y1="128.7" y2="128.7"></line><text class="price-axis" x="0" y="131.7">1.49M</text><line class="price-gridline" x1="48" x2="702" y1="184.0" y2="184.0"></line><text class="price-axis" x="0" y="187.0">1.31M</text>
-<path class="price-area" d="M 48.0,184 L 48.0,162.0 L 129.8,112.9 L 211.5,81.1 L 293.2,75.8 L 375.0,64.7 L 456.8,78.9 L 538.5,55.4 L 620.2,40.0 L 702.0,50.8 L 702.0,184 Z" style="fill:url(#priceGrad-renault-duster)"></path>
-<polyline class="price-line" points="48.0,162.0 129.8,112.9 211.5,81.1 293.2,75.8 375.0,64.7 456.8,78.9 538.5,55.4 620.2,40.0 702.0,50.8"></polyline>
-<circle class="price-dot" cx="48.0" cy="162.0" r="4"><title>Mar · 1.385.000 ₺</title></circle><circle class="price-dot" cx="129.8" cy="112.9" r="4"><title>Nis · 1.544.000 ₺</title></circle><circle class="price-dot" cx="211.5" cy="81.1" r="4"><title>May · 1.647.000 ₺</title></circle><circle class="price-dot" cx="293.2" cy="75.8" r="4"><title>Haz · 1.664.000 ₺</title></circle><circle class="price-dot" cx="375.0" cy="64.7" r="4"><title>Tem · 1.700.000 ₺</title></circle><circle class="price-dot" cx="456.8" cy="78.9" r="4"><title>Ağu · 1.654.000 ₺</title></circle><circle class="price-dot" cx="538.5" cy="55.4" r="4"><title>Eyl · 1.730.000 ₺</title></circle><circle class="price-dot" cx="620.2" cy="40.0" r="4"><title>Eki · 1.780.000 ₺</title></circle><circle class="price-dot" cx="702.0" cy="50.8" r="4"><title>Kas · 1.745.000 ₺</title></circle><text class="price-axis" text-anchor="middle" x="48.0" y="209">Mar</text><text class="price-axis" text-anchor="middle" x="211.5" y="209">May</text><text class="price-axis" text-anchor="middle" x="375.0" y="209">Tem</text><text class="price-axis" text-anchor="middle" x="538.5" y="209">Eyl</text><text class="price-axis" text-anchor="middle" x="702.0" y="209">Kas</text>
-</svg>
-</div>
-<div class="price-stats">
-<div class="price-stat"><span>İlk kayıt</span><strong>1.385.000 ₺</strong><small>Mar 2025</small></div>
-<div class="price-stat"><span>Son kayıt</span><strong>1.745.000 ₺</strong><small>Kas 2025</small></div>
-<div class="price-stat"><span>Dönem değişimi</span><strong>+26.0%</strong><small>Aynı referans versiyon</small></div>
-<div class="price-stat"><span>2025 aralık</span><strong>395.000 ₺</strong><small>Min–maks farkı</small></div>
-<div class="price-source">Bu grafik tek bir referans versiyonun geçmiş liste fiyatlarını gösterir; kampanya/opsiyon/ÖTV değişiklikleri fiyata etki edebilir. <a href="https://www.arabalar.com.tr/renault/duster/2025/1-0-evolution-eco-g" rel="noopener" target="_blank">Arşiv kaynağı ↗</a> · <button class="price-table-toggle" onclick="togglePriceTable(this)" type="button">Tabloyu aç</button></div>
-<div class="price-table"><div class="price-table-row"><span>Mar</span><b>1.385.000 ₺</b></div><div class="price-table-row"><span>Nis</span><b>1.544.000 ₺</b></div><div class="price-table-row"><span>May</span><b>1.647.000 ₺</b></div><div class="price-table-row"><span>Haz</span><b>1.664.000 ₺</b></div><div class="price-table-row"><span>Tem</span><b>1.700.000 ₺</b></div><div class="price-table-row"><span>Ağu</span><b>1.654.000 ₺</b></div><div class="price-table-row"><span>Eyl</span><b>1.730.000 ₺</b></div><div class="price-table-row"><span>Eki</span><b>1.780.000 ₺</b></div><div class="price-table-row"><span>Kas</span><b>1.745.000 ₺</b></div></div>
-</div>
-</div>
-</section>
+</section><section class="content-section reveal" id="prices"><div class="content-head"><h2>Fiyat hafızası</h2><span>2025 aylık liste fiyatı arşivi</span></div><div class="price-v42">
+<div class="price-v42-card" data-series='[{"month": "Mar", "value": 1385000}, {"month": "Nis", "value": 1544000}, {"month": "May", "value": 1647000}, {"month": "Haz", "value": 1664000}, {"month": "Tem", "value": 1700000}, {"month": "Ağu", "value": 1654000}, {"month": "Eyl", "value": 1730000}, {"month": "Eki", "value": 1780000}, {"month": "Kas", "value": 1745000}]'><div class="price-v42-head"><div><div class="kicker">Referans versiyon</div><h3>2025 1.0 Evolution Eco-G</h3></div><div class="price-v42-controls"><button class="price-v42-mode active" data-mode="price">Fiyat</button><button class="price-v42-mode" data-mode="change">Aylık değişim %</button><button class="price-v42-mode" data-mode="index">Endeks · 100</button></div></div><div class="price-v42-stage"><div class="price-v42-tooltip"></div><svg preserveaspectratio="none" viewbox="0 0 760 250"></svg></div><div class="price-v42-readout"></div></div>
+<div class="price-v42-stats"><div class="price-v42-stat"><span>İlk kayıt</span><strong>1.385.000 TL</strong><small>Mar 2025</small></div><div class="price-v42-stat"><span>Son kayıt</span><strong>1.745.000 TL</strong><small>Kas 2025</small></div><div class="price-v42-stat"><span>Dönem değişimi</span><strong>+26.0%</strong><small>Aynı referans versiyon</small></div><div class="price-v42-stat"><span>2025 aralık</span><strong>395.000 TL</strong><small>Min–maks farkı</small></div><div class="price-v42-source">Tek bir referans versiyonun liste fiyat geçmişi. Kampanya, opsiyon ve vergi değişiklikleri fiyatı etkileyebilir. <a href="https://www.arabalar.com.tr/renault/duster/2025/1-0-evolution-eco-g" target="_blank">Arşiv kaynağı ↗</a> · <button class="price-v42-toggle" onclick="togglePriceV42(this)">Tabloyu aç</button></div><div class="price-v42-table"><div class="price-v42-row"><span>Mar</span><b>1.385.000 TL</b></div><div class="price-v42-row"><span>Nis</span><b>1.544.000 TL</b></div><div class="price-v42-row"><span>May</span><b>1.647.000 TL</b></div><div class="price-v42-row"><span>Haz</span><b>1.664.000 TL</b></div><div class="price-v42-row"><span>Tem</span><b>1.700.000 TL</b></div><div class="price-v42-row"><span>Ağu</span><b>1.654.000 TL</b></div><div class="price-v42-row"><span>Eyl</span><b>1.730.000 TL</b></div><div class="price-v42-row"><span>Eki</span><b>1.780.000 TL</b></div><div class="price-v42-row"><span>Kas</span><b>1.745.000 TL</b></div></div></div></div></section>
 <section class="content-section reveal" id="version-lab">
 <div class="content-head"><h2>Sana göre versiyon</h2><span>Kullanım önceliğine göre yönlendirme</span></div>
 <div class="version-lab" data-versions='[{"name": "Eco-G", "city": 82, "long": 74, "risk": 78, "cost": 96, "perf": 60}, {"name": "1.3 TCe EDC", "city": 80, "long": 84, "risk": 67, "cost": 68, "perf": 91}, {"name": "E-Tech Hybrid", "city": 94, "long": 82, "risk": 66, "cost": 82, "perf": 83}]'>
@@ -990,4 +1121,76 @@ function setupGenerations(){
  }));
 }
 document.addEventListener('DOMContentLoaded',setupGenerations);
+</script><script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const panel=document.querySelector('.price-chart-panel');
+  if(!panel)return;
+  const svg=panel.querySelector('.price-interactive svg'), tip=panel.querySelector('.price-tooltip');
+  if(!svg||!tip)return;
+  function triggerAt(clientX){
+    const rect=svg.getBoundingClientRect();
+    const W=760,pl=55,pr=18;
+    const table=[...document.querySelectorAll('.price-table-row')];
+    const months=table.map(r=>r.children[0].textContent.trim());
+    const values=table.map(r=>Number(r.children[1].textContent.replace(/[^\d]/g,'')));
+    if(!values.length)return;
+    const sx=(clientX-rect.left)/rect.width*W;
+    let idx=Math.round((sx-pl)/(W-pl-pr)*(values.length-1));idx=Math.max(0,Math.min(values.length-1,idx));
+    const x=pl+(W-pl-pr)*(idx/(values.length-1||1));
+    const raw=values[idx],prev=idx?values[idx-1]:raw,ch=idx?((raw/prev-1)*100):0;
+    tip.innerHTML=`<b>${months[idx]} 2025</b><br>${new Intl.NumberFormat('tr-TR').format(raw)} TL${idx?` · ${ch>=0?'+':''}${ch.toFixed(1)}%`:''}`;
+    tip.style.left=(x/W*100)+'%';tip.style.top='30%';tip.classList.add('show');
+    clearTimeout(window.__priceTip);window.__priceTip=setTimeout(()=>tip.classList.remove('show'),1800);
+  }
+  svg.addEventListener('click',e=>triggerAt(e.clientX));
+  svg.addEventListener('touchstart',e=>{if(e.touches&&e.touches[0])triggerAt(e.touches[0].clientX)},{passive:true});
+});
+</script><script>
+function setupPriceV42(){
+  document.querySelectorAll('.price-v42-card').forEach(card=>{
+    const series=JSON.parse(card.dataset.series||'[]');
+    if(!series.length)return;
+    const stage=card.querySelector('.price-v42-stage'),svg=stage.querySelector('svg'),tip=stage.querySelector('.price-v42-tooltip'),readout=card.querySelector('.price-v42-readout');
+    const buttons=[...card.querySelectorAll('.price-v42-mode')];
+    const NS='http://www.w3.org/2000/svg';let mode='price',lastIndex=series.length-1;
+    const W=760,H=250,pl=54,pr=18,pt=18,pb=38;
+    const mk=(tag,attrs={})=>{const e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));return e};
+    const tr=n=>new Intl.NumberFormat('tr-TR',{maximumFractionDigits:0}).format(n);
+    function values(){
+      if(mode==='price')return series.map(x=>x.value);
+      if(mode==='index')return series.map(x=>x.value/series[0].value*100);
+      return series.map((x,i)=>i?((x.value/series[i-1].value-1)*100):0);
+    }
+    function updateReadout(i){
+      lastIndex=i;const raw=series[i].value,prev=i?series[i-1].value:raw,ch=i?((raw/prev-1)*100):0;
+      const text=`${series[i].month} 2025 · ${tr(raw)} TL${i?` · ${ch>=0?'+':''}${ch.toFixed(1)}%`:''}`;
+      if(readout)readout.innerHTML=`<b>${series[i].month} 2025</b><br>${tr(raw)} TL${i?` · ${ch>=0?'+':''}${ch.toFixed(1)}%`:''}`;
+      if(tip)tip.innerHTML=`<b>${series[i].month} 2025</b><br>${tr(raw)} TL${i?` · ${ch>=0?'+':''}${ch.toFixed(1)}%`:''}`;
+      return text;
+    }
+    function render(){
+      svg.innerHTML='';const data=values();let lo=Math.min(...data),hi=Math.max(...data);if(lo===hi){lo-=1;hi+=1}const pad=(hi-lo)*.15;lo-=pad;hi+=pad;
+      const x=i=>pl+(W-pl-pr)*(i/(data.length-1||1));const y=v=>pt+(H-pt-pb)*(1-(v-lo)/(hi-lo));
+      for(let j=0;j<4;j++){const yy=pt+(H-pt-pb)*(j/3),vv=hi-(hi-lo)*(j/3);svg.appendChild(mk('line',{x1:pl,y1:yy,x2:W-pr,y2:yy,class:'v42-grid'}));const t=mk('text',{x:2,y:yy+3,class:'v42-axis'});t.textContent=mode==='price'?(vv/1e6).toFixed(2)+'M':mode==='index'?vv.toFixed(0):vv.toFixed(1)+'%';svg.appendChild(t)}
+      series.forEach((s,i)=>{if(i%Math.ceil(series.length/6)===0||i===series.length-1){const t=mk('text',{x:x(i),y:H-12,class:'v42-axis','text-anchor':'middle'});t.textContent=s.month;svg.appendChild(t)}});
+      if(mode==='change'){
+        const zero=y(0);svg.appendChild(mk('line',{x1:pl,y1:zero,x2:W-pr,y2:zero,stroke:'#a8aaa5','stroke-width':'1'}));const bw=Math.max(14,(W-pl-pr)/data.length*.48);
+        data.forEach((v,i)=>{const yy=y(v),h=Math.max(1,Math.abs(zero-yy));const r=mk('rect',{x:x(i)-bw/2,y:Math.min(zero,yy),width:bw,height:h,rx:4,class:'v42-bar'+(v<0?' neg':'')});r.dataset.i=i;svg.appendChild(r)});
+      }else{
+        const pts=data.map((v,i)=>[x(i),y(v)]);const area='M '+pts[0][0]+','+(H-pb)+' L '+pts.map(p=>p.join(',')).join(' L ')+' L '+pts.at(-1)[0]+','+(H-pb)+' Z';svg.appendChild(mk('path',{d:area,class:'v42-area'}));svg.appendChild(mk('polyline',{points:pts.map(p=>p.join(',')).join(' '),class:'v42-line'}));data.forEach((v,i)=>{const c=mk('circle',{cx:x(i),cy:y(v),r:4,class:'v42-dot'});c.dataset.i=i;svg.appendChild(c)});
+      }
+      const guide=mk('line',{x1:0,x2:0,y1:pt,y2:H-pb,class:'v42-guide'});svg.appendChild(guide);
+      function pick(clientX,showTip=true){
+        const rect=svg.getBoundingClientRect(),sx=(clientX-rect.left)/rect.width*W;let i=Math.round((sx-pl)/(W-pl-pr)*(data.length-1));i=Math.max(0,Math.min(data.length-1,i));const xx=x(i),yy=y(data[i]);guide.setAttribute('x1',xx);guide.setAttribute('x2',xx);guide.style.opacity='1';svg.querySelectorAll('.v42-dot').forEach(d=>d.classList.toggle('active',Number(d.dataset.i)===i));updateReadout(i);if(tip&&showTip){tip.style.left=(xx/W*100)+'%';tip.style.top=(yy/H*100)+'%';tip.classList.add('show')}return i;
+      }
+      svg.onmousemove=e=>pick(e.clientX,true);svg.onmouseleave=()=>{guide.style.opacity='0';tip?.classList.remove('show');svg.querySelectorAll('.v42-dot').forEach(d=>d.classList.remove('active'))};
+      svg.onclick=e=>{pick(e.clientX,innerWidth>640);if(innerWidth<=640){clearTimeout(card.__tipTimer);card.__tipTimer=setTimeout(()=>{},1000)}};
+      svg.ontouchstart=e=>{if(e.touches&&e.touches[0])pick(e.touches[0].clientX,false)};
+      updateReadout(Math.min(lastIndex,series.length-1));
+    }
+    buttons.forEach(b=>b.addEventListener('click',()=>{buttons.forEach(x=>x.classList.remove('active'));b.classList.add('active');mode=b.dataset.mode;render()}));render();
+  });
+}
+function togglePriceV42(btn){const t=btn.closest('.price-v42-stats').querySelector('.price-v42-table');t.classList.toggle('show');btn.textContent=t.classList.contains('show')?'Tabloyu kapat':'Tabloyu aç'}
+document.addEventListener('DOMContentLoaded',setupPriceV42);
 </script></body></html>
